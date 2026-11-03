@@ -121,7 +121,7 @@
   const label = $("#sliderLabel");
   const result = $("#promiseResult");
   const promiseArea = $("#promiseArea");
-  const initialLabel = "Desliza para confirmar que seguimos eligiéndonos";
+  const initialLabel = "DESLIZA Y ELIJÁMONOS UNA VEZ MÁS";
   let dragging = false;
   let completed = false;
   let knobX = 0;
