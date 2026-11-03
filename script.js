@@ -25,12 +25,43 @@
   }
 
   const progress = $("#scrollProgress");
+  const memoryFrames = $$(".memory-frame");
   let scrollTicking = false;
+
+  const smoothstep = (start, end, value) => {
+    const normalized = Math.min(1, Math.max(0, (value - start) / (end - start)));
+    return normalized * normalized * (3 - 2 * normalized);
+  };
+
+  const updateMemoryBackdrop = (pageProgress) => {
+    if (!memoryFrames.length) return;
+
+    const scenePosition = pageProgress * (memoryFrames.length - 1);
+    const currentScene = Math.min(memoryFrames.length - 1, Math.floor(scenePosition));
+    const nextScene = Math.min(memoryFrames.length - 1, currentScene + 1);
+    const sceneProgress = scenePosition - currentScene;
+    const blend = currentScene === nextScene ? 0 : smoothstep(.18, .82, sceneProgress);
+
+    memoryFrames.forEach((frame, index) => {
+      let opacity = 0;
+      if (index === currentScene) opacity = currentScene === nextScene ? 1 : 1 - blend;
+      else if (index === nextScene) opacity = blend;
+
+      frame.style.opacity = opacity.toFixed(4);
+      frame.classList.toggle("is-active", opacity > .001);
+
+      if (!reducedMotion && opacity > .001) {
+        const distance = index - scenePosition;
+        frame.style.setProperty("--memory-shift", `${(distance * 1.4).toFixed(2)}%`);
+      }
+    });
+  };
 
   const updateProgress = () => {
     const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const value = Math.min(1, Math.max(0, window.scrollY / maxScroll));
     if (progress) progress.style.transform = `scaleX(${value})`;
+    updateMemoryBackdrop(value);
     scrollTicking = false;
   };
 
@@ -69,11 +100,13 @@
 
   const bridgePanel = $("#bridgePanel");
   const chooseUsButton = $("#chooseUsBtn");
+  const bridgeMessage = $("#bridgeMessage");
 
   const setBridgeState = (joined) => {
     if (!bridgePanel || !chooseUsButton) return;
     bridgePanel.classList.toggle("is-joined", joined);
     chooseUsButton.setAttribute("aria-pressed", String(joined));
+    bridgeMessage?.setAttribute("aria-hidden", String(!joined));
     const label = $("span", chooseUsButton);
     if (label) label.textContent = joined ? "Recordemos esto" : "Volvamos a nosotros";
   };

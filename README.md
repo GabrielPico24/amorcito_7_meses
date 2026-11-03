@@ -20,5 +20,6 @@ Puedes abrir `index.html` directamente en el navegador. Para reproducir mejor el
 - `index.html`: contenido y estructura semántica.
 - `styles.css`: diseño adaptable, estados y animaciones.
 - `script.js`: carta, animaciones de entrada, puente, progreso y deslizador final.
+- `assets/photos/`: cinco fotografías optimizadas que cambian gradualmente con el desplazamiento.
 - `7_meses_nos_elegimos_v2.html`: versión anterior conservada como referencia.
 # amorcito_7_meses

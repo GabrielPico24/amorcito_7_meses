@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&amp;display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="./assets/photos/momento-01.jpg" fetchpriority="high">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23211017'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='40' fill='%23f4dfbd'%3E7%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <script src="./script.js" defer></script>
@@ -20,6 +21,27 @@
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <div class="memory-backdrop" id="memoryBackdrop" aria-hidden="true">
+    <div class="memory-frame memory-frame-portrait is-active" style="--memory-image: url('./assets/photos/momento-01.jpg')">
+      <img class="memory-photo" src="./assets/photos/momento-01.jpg" alt="" fetchpriority="high" decoding="async">
+    </div>
+    <div class="memory-frame memory-frame-portrait" style="--memory-image: url('./assets/photos/momento-02.jpg')">
+      <img class="memory-photo" src="./assets/photos/momento-02.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+    <div class="memory-frame memory-frame-landscape memory-frame-plaza" style="--memory-image: url('./assets/photos/momento-03.jpg')">
+      <img class="memory-photo" src="./assets/photos/momento-03.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+    <div class="memory-frame memory-frame-portrait memory-frame-dinner" style="--memory-image: url('./assets/photos/momento-04.jpg')">
+      <img class="memory-photo" src="./assets/photos/momento-04.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+    <div class="memory-frame memory-frame-portrait memory-frame-final" style="--memory-image: url('./assets/photos/momento-05.jpg')">
+      <img class="memory-photo" src="./assets/photos/momento-05.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+    <div class="memory-vignette"></div>
+    <div class="memory-tint"></div>
+  </div>
+
   <div class="noise" aria-hidden="true"></div>
 
   <main class="site-shell" id="contenido">
@@ -113,10 +135,13 @@
               </div>
             </div>
 
-            <p class="bridge-message">
-              No necesito que nunca discutamos. Necesito que, incluso cuando pase,
-              podamos recordar que <strong>tú y yo seguimos siendo nosotros.</strong>
-            </p>
+            <div class="bridge-message" id="bridgeMessage" aria-hidden="true">
+              <span class="bridge-message-kicker"><span aria-hidden="true">✦</span> Lo esencial</span>
+              <p>
+                No necesito que nunca discutamos. Solo que, incluso entonces, recordemos lo esencial:
+                <strong>tú y yo seguimos siendo nosotros.</strong>
+              </p>
+            </div>
           </div>
 
           <div class="bridge-controls">
