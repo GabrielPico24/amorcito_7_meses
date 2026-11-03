@@ -7,7 +7,12 @@
   const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 
   const hero = $(".hero");
-  requestAnimationFrame(() => hero?.classList.add("is-ready"));
+  const revealHero = () => requestAnimationFrame(() => hero?.classList.add("is-ready"));
+  if (document.body.classList.contains("puzzle-locked")) {
+    document.addEventListener("puzzle:unlocked", revealHero, { once: true });
+  } else {
+    revealHero();
+  }
 
   const revealElements = $$(".reveal");
   if (reducedMotion || !("IntersectionObserver" in window)) {

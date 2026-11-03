@@ -11,15 +11,82 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&amp;display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="./assets/photos/momento-01.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="./assets/photos/momento-04.jpg" fetchpriority="high">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23211017'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='40' fill='%23f4dfbd'%3E7%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.7/Sortable.min.js" defer></script>
+  <script src="./puzzle.js" defer></script>
   <script src="./script.js" defer></script>
-  <noscript><style>.hero-reveal,.hero-ring,.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <noscript>
+    <style>
+      .puzzle-interactive { display: none !important; }
+      .puzzle-noscript { display: grid !important; }
+    </style>
+  </noscript>
 </head>
 
-<body>
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+<body class="puzzle-locked">
+  <section class="puzzle-gate" id="puzzleGate" role="dialog" aria-modal="true" aria-labelledby="puzzleTitle" aria-describedby="puzzleInstructions">
+    <div class="puzzle-ambient" aria-hidden="true"></div>
+    <div class="puzzle-shell">
+      <div class="puzzle-copy">
+        <p class="puzzle-kicker"><span aria-hidden="true">✦</span> Antes de entrar</p>
+        <h1 id="puzzleTitle">Reconstruye<br><em>un recuerdo.</em></h1>
+        <p id="puzzleInstructions">
+          Ordena las nueve piezas. Arrástralas o toca dos para intercambiarlas.
+          Cuando la imagen esté completa, nuestra historia se abrirá.
+        </p>
+
+        <div class="puzzle-meta puzzle-interactive" aria-label="Progreso del puzzle">
+          <div>
+            <span>Piezas en su lugar</span>
+            <strong id="puzzleProgressText">0 de 9</strong>
+          </div>
+          <div>
+            <span>Movimientos</span>
+            <strong id="puzzleMoves">0</strong>
+          </div>
+        </div>
+
+        <div class="puzzle-progress puzzle-interactive" aria-hidden="true">
+          <span id="puzzleProgressBar"></span>
+        </div>
+
+        <p class="puzzle-noscript" hidden>
+          Activa JavaScript para resolver este recuerdo y entrar a la página.
+        </p>
+      </div>
+
+      <div class="puzzle-interactive puzzle-play-area">
+        <div class="puzzle-board-wrap">
+          <div class="puzzle-board" id="puzzleBoard" aria-label="Puzzle fotográfico de nueve piezas"></div>
+
+          <div class="puzzle-preview" id="puzzlePreview" aria-hidden="true">
+            <img src="./assets/photos/momento-04.jpg" alt="">
+            <span>Así se ve completo</span>
+          </div>
+
+          <div class="puzzle-complete" id="puzzleComplete" aria-hidden="true">
+            <span class="puzzle-heart" aria-hidden="true">♥</span>
+            <strong>Lo reconstruiste.</strong>
+            <small>Ahora sí, entremos.</small>
+          </div>
+        </div>
+
+        <div class="puzzle-toolbar">
+          <button class="puzzle-tool" id="puzzleHintBtn" type="button" aria-pressed="false">
+            <span aria-hidden="true">◉</span> Ver pista
+          </button>
+          <p id="puzzleStatus" role="status" aria-live="polite">Busca primero las esquinas.</p>
+          <button class="puzzle-tool" id="puzzleShuffleBtn" type="button">
+            <span aria-hidden="true">↻</span> Mezclar
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <a class="skip-link" href="#contenido" tabindex="-1">Saltar al contenido</a>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <div class="memory-backdrop" id="memoryBackdrop" aria-hidden="true">
@@ -44,7 +111,7 @@
 
   <div class="noise" aria-hidden="true"></div>
 
-  <main class="site-shell" id="contenido">
+  <main class="site-shell" id="contenido" tabindex="-1" inert aria-hidden="true">
     <section class="hero" id="inicio" aria-labelledby="heroTitle">
       <div class="hero-ring" aria-hidden="true"></div>
       <div class="hero-content">

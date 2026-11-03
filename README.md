@@ -1,10 +1,10 @@
-# 7 meses · Todavía te elijo
+# 7 meses · Y siempre te elijo
 
-Sitio estático preparado para GitHub Pages. No necesita Node.js, compilación, servidor ni dependencias JavaScript externas.
+Sitio estático preparado para GitHub Pages. No necesita Node.js, compilación ni servidor. La portada utiliza SortableJS desde un CDN para mejorar el arrastre del puzzle; si la librería no carga, el intercambio de piezas por toques o clics sigue funcionando de forma nativa.
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css` y `script.js` a la raíz del repositorio.
+1. Sube `index.html`, `styles.css`, `puzzle.js`, `script.js` y la carpeta `assets/` a la raíz del repositorio.
 2. En GitHub abre **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama `main`, la carpeta `/ (root)` y guarda.
@@ -19,7 +19,6 @@ Puedes abrir `index.html` directamente en el navegador. Para reproducir mejor el
 
 - `index.html`: contenido y estructura semántica.
 - `styles.css`: diseño adaptable, estados y animaciones.
+- `puzzle.js`: puzzle de acceso, pista, progreso y desbloqueo de la página principal.
 - `script.js`: carta, animaciones de entrada, puente, progreso y deslizador final.
 - `assets/photos/`: cinco fotografías optimizadas que cambian gradualmente con el desplazamiento.
-- `7_meses_nos_elegimos_v2.html`: versión anterior conservada como referencia.
-# amorcito_7_meses
