@@ -73,6 +73,7 @@
     completePanel?.classList.add("is-visible");
     completePanel?.setAttribute("aria-hidden", "false");
     gate?.classList.add("is-solved");
+    document.dispatchEvent(new CustomEvent("puzzle:completed"));
     unlockSite();
   };
 

@@ -4,7 +4,7 @@ Sitio estático preparado para GitHub Pages. No necesita Node.js, compilación n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `puzzle.js`, `script.js` y la carpeta `assets/` a la raíz del repositorio.
+1. Sube `index.html`, `styles.css`, `music.js`, `puzzle.js`, `script.js` y la carpeta `assets/` a la raíz del repositorio.
 2. En GitHub abre **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama `main`, la carpeta `/ (root)` y guarda.
@@ -19,6 +19,8 @@ Puedes abrir `index.html` directamente en el navegador. Para reproducir mejor el
 
 - `index.html`: contenido y estructura semántica.
 - `styles.css`: diseño adaptable, estados y animaciones.
+- `music.js`: reproducción en bucle, transición entre canciones y control de pausa/reproducción.
 - `puzzle.js`: puzzle de acceso, pista, progreso y desbloqueo de la página principal.
 - `script.js`: carta, animaciones de entrada, puente, progreso y deslizador final.
 - `assets/photos/`: cinco fotografías optimizadas que cambian gradualmente con el desplazamiento.
+- `assets/music/`: canción del puzzle y canción principal del recorrido.

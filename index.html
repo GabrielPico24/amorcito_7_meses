@@ -15,6 +15,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23211017'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='40' fill='%23f4dfbd'%3E7%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.7/Sortable.min.js" defer></script>
+  <script src="./music.js" defer></script>
   <script src="./puzzle.js" defer></script>
   <script src="./script.js" defer></script>
   <noscript>
@@ -86,6 +87,30 @@
     </div>
   </section>
 
+  <div class="music-player" id="musicPlayer" data-state="waiting" data-track="puzzle">
+    <audio class="ambient-audio" id="puzzleMusic" preload="auto" loop>
+      <source src="./assets/music/cancion_puzzles.mp3" type="audio/mpeg">
+    </audio>
+    <audio class="ambient-audio" id="mainMusic" preload="metadata" loop>
+      <source src="./assets/music/cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Reproducir música">
+      <span class="music-icon" aria-hidden="true">
+        <svg class="music-play-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M9 7.5v9l7-4.5-7-4.5Z" fill="currentColor"/>
+        </svg>
+        <svg class="music-pause-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M9 8v8M15 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="music-copy">
+        <small id="musicStatus">Música · toca para escuchar</small>
+        <strong id="musicTrackLabel">Reconstruyendo el recuerdo</strong>
+      </span>
+    </button>
+  </div>
+
   <a class="skip-link" href="#contenido" tabindex="-1">Saltar al contenido</a>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
@@ -132,7 +157,6 @@
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <button class="button button-ghost" type="button" data-open-letter>Leer mi carta</button>
         </div>
       </div>
       <a class="scroll-hint" href="#lo-nuestro">Sigue bajando</a>
