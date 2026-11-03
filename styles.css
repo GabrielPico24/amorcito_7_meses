@@ -477,18 +477,28 @@ p, h1, h2, h3, blockquote { margin-top: 0; }
 .bridge-panel {
   position: relative;
   overflow: hidden;
-  margin-top: 40px;
-  padding: clamp(26px, 5vw, 56px);
+  margin-top: 36px;
+  padding: clamp(24px, 4vw, 46px);
   border-radius: 34px;
 }
 
-.bridge-stage { position: relative; min-height: 330px; display: grid; place-items: center; margin-top: 18px; }
+.bridge-stage {
+  position: relative;
+  display: grid;
+  min-width: 0;
+}
+
+.bridge-visual {
+  position: relative;
+  min-height: 220px;
+  isolation: isolate;
+}
 
 .person-orb {
   position: absolute;
   top: 50%;
   z-index: 3;
-  width: clamp(92px, 13vw, 145px);
+  width: clamp(104px, 11vw, 138px);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -503,16 +513,16 @@ p, h1, h2, h3, blockquote { margin-top: 0; }
   transition: transform .48s cubic-bezier(.22, 1, .36, 1);
 }
 
-.orb-you { left: 9%; }
-.orb-me { right: 9%; }
-.bridge-panel.is-joined .orb-you { transform: translate(44px, -50%) scale(1.03); }
-.bridge-panel.is-joined .orb-me { transform: translate(-44px, -50%) scale(1.03); }
+.orb-you { left: 7%; }
+.orb-me { right: 7%; }
+.bridge-panel.is-joined .orb-you { transform: translate(24px, -50%) scale(1.03); }
+.bridge-panel.is-joined .orb-me { transform: translate(-24px, -50%) scale(1.03); }
 
 .bridge-line {
   position: absolute;
   top: 50%;
-  right: 21%;
-  left: 21%;
+  right: 13%;
+  left: 13%;
   z-index: 1;
   height: 1px;
   background: linear-gradient(90deg, rgba(230, 160, 178, .2), rgba(244, 223, 189, .85), rgba(230, 160, 178, .2));
@@ -524,43 +534,45 @@ p, h1, h2, h3, blockquote { margin-top: 0; }
 .bridge-panel.is-joined .bridge-line { opacity: .8; transform: translateY(-50%) scaleX(1); }
 
 .problem-cloud {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   z-index: 5;
-  max-width: 250px;
+  width: min(260px, 32%);
   padding: 22px 20px;
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 24px;
   background: rgba(15, 7, 11, .78);
   box-shadow: 0 20px 55px rgba(0, 0, 0, .28);
   text-align: center;
+  transform: translate(-50%, -50%);
   transition: opacity .32s ease, transform .32s ease;
 }
 
-.bridge-panel.is-joined .problem-cloud { opacity: 0; pointer-events: none; transform: scale(.92); }
+.bridge-panel.is-joined .problem-cloud { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(.92); }
 .problem-cloud > span { color: rgba(255, 255, 255, .42); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
 .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 14px; }
 .chips span { padding: 7px 10px; color: #bcaab1; border: 1px solid rgba(255, 255, 255, .08); border-radius: 999px; background: rgba(255, 255, 255, .045); font-size: .73rem; }
 
 .bridge-message {
-  position: absolute;
-  right: 0;
-  bottom: 6px;
-  left: 0;
-  width: min(680px, 92%);
+  position: relative;
+  width: min(760px, 100%);
+  max-height: 0;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 18px;
   align-items: center;
-  margin: auto;
-  padding: 16px 20px;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0 22px;
   color: #eadde1;
-  border: 1px solid rgba(244, 223, 189, .18);
+  border: 1px solid transparent;
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(86, 39, 56, .78), rgba(24, 13, 19, .94));
-  box-shadow: 0 18px 42px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(255, 255, 255, .055);
+  background: transparent;
+  box-shadow: none;
   opacity: 0;
-  transform: translateY(10px) scale(.985);
-  transition: opacity .42s ease, transform .42s cubic-bezier(.22, 1, .36, 1);
+  transform: translateY(8px);
+  transition: max-height .46s cubic-bezier(.22, 1, .36, 1), margin .46s cubic-bezier(.22, 1, .36, 1), padding .46s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, background-color .3s ease, box-shadow .3s ease, opacity .32s ease, transform .42s cubic-bezier(.22, 1, .36, 1);
 }
 
 .bridge-message-kicker {
@@ -578,8 +590,19 @@ p, h1, h2, h3, blockquote { margin-top: 0; }
 .bridge-message-kicker span { color: var(--rose-300); font-size: .7rem; }
 .bridge-message p { margin: 0; font-size: .9rem; line-height: 1.5; text-align: left; }
 .bridge-message strong { display: block; margin-top: 2px; color: #f3d7ad; font-family: "Playfair Display", Georgia, serif; font-size: 1.08rem; font-style: italic; font-weight: 600; }
-.bridge-panel.is-joined .bridge-message { opacity: 1; transform: translateY(0) scale(1); }
-.bridge-controls { margin-top: 14px; text-align: center; }
+.bridge-panel.is-joined .bridge-message {
+  max-height: 190px;
+  margin-top: 12px;
+  padding: 18px 22px;
+  border-color: rgba(244, 223, 189, .18);
+  background: linear-gradient(135deg, rgba(86, 39, 56, .78), rgba(24, 13, 19, .94));
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(255, 255, 255, .055);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bridge-controls { display: flex; justify-content: center; margin-top: 24px; }
+#chooseUsBtn { width: min(100%, 420px); justify-content: center; }
 #chooseUsBtn:focus-visible { outline-width: 2px; outline-offset: 3px; }
 
 .decisions-heading { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: end; margin-bottom: 14px; }
@@ -726,10 +749,11 @@ p, h1, h2, h3, blockquote { margin-top: 0; }
   .belief-grid { grid-template-columns: 1fr; }
   .belief-card { min-height: 0; }
   .belief-card h3 { margin-top: 24px; }
-  .bridge-stage { min-height: 315px; }
-  .orb-you { left: 1%; }
-  .orb-me { right: 1%; }
-  .bridge-line { right: 14%; left: 14%; }
+  .bridge-visual { min-height: 210px; }
+  .orb-you { left: 3%; }
+  .orb-me { right: 3%; }
+  .bridge-line { right: 12%; left: 12%; }
+  .problem-cloud { width: min(230px, 38%); }
 }
 
 @media (max-width: 640px) {
@@ -757,20 +781,24 @@ p, h1, h2, h3, blockquote { margin-top: 0; }
   .statement-card::before, .statement-card::after { top: 12px; font-size: 3.2rem; }
   .statement-card::before { left: 14px; }
   .statement-card::after { right: 14px; }
-  .bridge-panel { padding-inline: 14px; }
-  .bridge-stage { min-height: 330px; }
-  .person-orb { top: 42%; width: 94px; font-size: .86rem; }
+  .bridge-panel { padding: 18px 14px 20px; }
+  .bridge-visual { min-height: 210px; }
+  .person-orb { width: 92px; font-size: .86rem; }
   .orb-you { left: 0; }
   .orb-me { right: 0; }
-  .bridge-panel.is-joined .orb-you { transform: translate(22px, -50%) scale(1.03); }
-  .bridge-panel.is-joined .orb-me { transform: translate(-22px, -50%) scale(1.03); }
-  .bridge-line { top: 42%; right: 17%; left: 17%; }
-  .problem-cloud { top: -5px; max-width: 190px; padding: 16px 12px; }
+  .bridge-panel.is-joined .orb-you { transform: translate(12px, -50%) scale(1.03); }
+  .bridge-panel.is-joined .orb-me { transform: translate(-12px, -50%) scale(1.03); }
+  .bridge-line { right: 14%; left: 14%; }
+  .problem-cloud { width: 150px; padding: 15px 10px; }
+  .problem-cloud > span { font-size: .62rem; letter-spacing: .12em; }
+  .chips { gap: 5px; margin-top: 11px; }
   .chips span { padding: 6px 8px; font-size: .65rem; }
-  .bridge-message { bottom: 0; width: 94%; grid-template-columns: 1fr; gap: 7px; padding: 14px 16px; border-radius: 18px; text-align: center; }
+  .bridge-message { width: 100%; grid-template-columns: 1fr; gap: 7px; padding-inline: 14px; border-radius: 18px; text-align: center; }
+  .bridge-panel.is-joined .bridge-message { max-height: 230px; margin-top: 8px; padding: 14px; }
   .bridge-message-kicker { justify-content: center; font-size: .62rem; }
   .bridge-message p { font-size: .82rem; line-height: 1.45; text-align: center; }
   .bridge-message strong { margin-top: 3px; font-size: 1.02rem; }
+  .bridge-controls { margin-top: 16px; }
   .decisions-heading { grid-template-columns: 1fr; }
   .months-track { grid-auto-columns: minmax(78vw, 1fr); }
   .month-card { min-height: 340px; }
@@ -784,6 +812,17 @@ p, h1, h2, h3, blockquote { margin-top: 0; }
   .dialog-body { padding-inline: 22px; }
   .noise { display: none; }
   .glass { background: linear-gradient(180deg, rgba(39, 24, 31, .9), rgba(24, 14, 19, .86)); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+@media (max-width: 360px) {
+  .bridge-visual { min-height: 190px; }
+  .person-orb { width: 70px; font-size: .78rem; }
+  .problem-cloud { width: 120px; padding: 12px 6px; border-radius: 18px; }
+  .problem-cloud > span { font-size: .54rem; }
+  .chips { gap: 4px; margin-top: 9px; }
+  .chips span { padding: 5px 6px; font-size: .58rem; }
+  .bridge-message p { font-size: .78rem; }
+  .bridge-message strong { font-size: .96rem; }
 }
 
 @media (pointer: coarse) {
